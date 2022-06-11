@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BlackLion.QRStore.ViewModels"
+             x:Class="BlackLion.QRStore.Views.EditItemPage"
+             Title="Edit">
+    <ContentPage.BindingContext>
+        <local:EditItemViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Spacing="3" Padding="15">
+            <Entry Text="{Binding URL}" FontSize="Medium" Placeholder="URL"/>
+            <Entry Text="{Binding Name}" FontSize="Medium" Placeholder="Name"/>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel"
+                        Command="{Binding CancelCommand}"
+                        HorizontalOptions="FillAndExpand"/>
+                <Button Command="{Binding SaveCommand}"
+                        Text="Save"
+                        HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             xmlns:local="clr-namespace:BlackLion.QRStore.ViewModels"
+             x:Class="BlackLion.QRStore.Views.ScanQRCodePage"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <local:ScanQRCodeViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <zxing:ZXingScannerView IsScanning="{Binding IsScanning}"
+                Options="{Binding Options}"
+                ScanResultCommand="{Binding OnScanResultCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

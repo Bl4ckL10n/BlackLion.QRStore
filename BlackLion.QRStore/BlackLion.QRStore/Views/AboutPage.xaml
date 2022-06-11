@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BlackLion.QRStore.Views.AboutPage"
+             xmlns:vm="clr-namespace:BlackLion.QRStore.ViewModels"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Orientation="Horizontal">
+        <Label HorizontalOptions="Center" Margin="10,15,10,0" FontSize="Medium">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="This app was developed by Max Almonte and is distributed under the GPL v3, you can get in touch with me at " />
+                    <Span Text="@maxalmonte14"
+                          TextColor="Blue"
+                          TextDecorations="Underline">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ClickCommand}"
+                                                  CommandParameter="https://twitter.com/maxalmonte14" />
+                        </Span.GestureRecognizers>
+                    </Span>
+                    <Span Text="." />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label></Label>
+    </StackLayout>
+
+</ContentPage>

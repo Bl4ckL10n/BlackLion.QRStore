@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BlackLion.QRStore.ViewModels"
+             x:Class="BlackLion.QRStore.Views.ItemDetailPage"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <local:ItemDetailViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding DeleteItemCommand}"
+                     Order="Secondary"
+                     Text="Delete"/>
+        <ToolbarItem Command="{Binding EditItemCommand}"
+                     Order="Secondary"
+                     Text="Edit"/>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Spacing="20" Padding="15">
+        <Label Text="Name:"
+               FontSize="Medium"
+               FontAttributes="Bold"/>
+        <Label Text="{Binding Item.Name}" FontSize="Small"/>
+        <Label Text="URL:"
+               FontSize="Medium"
+               FontAttributes="Bold"/>
+        <Label Text="{Binding Item.URL}" FontSize="Small"/>
+        <Button Text="Visit" Command="{Binding ClickVisitButtonCommand}"/>
+    </StackLayout>
+    
+</ContentPage>

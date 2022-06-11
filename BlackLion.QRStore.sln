@@ -7,7 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackLion.QRStore.Android",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackLion.QRStore.iOS", "BlackLion.QRStore\BlackLion.QRStore.iOS\BlackLion.QRStore.iOS.csproj", "{937F68E2-B18F-45E5-955B-1BFADFE3C3F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackLion.QRStore", "BlackLion.QRStore\BlackLion.QRStore\BlackLion.QRStore.csproj", "{01791904-F92A-4889-A41F-0917BA7653C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackLion.QRStore", "BlackLion.QRStore\BlackLion.QRStore\BlackLion.QRStore.csproj", "{01791904-F92A-4889-A41F-0917BA7653C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E4BDDE5D-E66B-4705-AE14-5D828A7E773B}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

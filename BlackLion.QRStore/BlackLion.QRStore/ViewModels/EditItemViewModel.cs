@@ -1,4 +1,5 @@
-﻿using BlackLion.QRStore.Models;
+﻿using BlackLion.QRStore.Helpers;
+using BlackLion.QRStore.Models;
 using BlackLion.QRStore.Services;
 using System;
 using Xamarin.Forms;
@@ -9,6 +10,7 @@ namespace BlackLion.QRStore.ViewModels
     public class EditItemViewModel : BaseViewModel
     {
         private readonly IDataStore<Item> _dataStore;
+        private bool isValidURL;
         private int itemId;
         private Item item;
         private string name;
@@ -17,6 +19,13 @@ namespace BlackLion.QRStore.ViewModels
         public Command CancelCommand { get; }
 
         public Command SaveCommand { get; }
+
+        public bool IsValidURL
+        {
+            get => isValidURL;
+            set => SetProperty(ref isValidURL, value);
+        }
+
         public int ItemId
         {
             get => itemId;
@@ -50,8 +59,8 @@ namespace BlackLion.QRStore.ViewModels
 
         private async void OnSave(object obj)
         {
-            item.Name = Name;
-            item.URL = URL;
+            item.Name = name;
+            item.URL = url;
             var isUpdated = await _dataStore.UpdateItemAsync(item);
 
             if (!isUpdated)
@@ -64,15 +73,18 @@ namespace BlackLion.QRStore.ViewModels
 
         private bool ValidateSave(object arg)
         {
-            if (item == null)
+            if (item == null || url == null)
             {
                 return false;
             }
 
-            return !String.IsNullOrWhiteSpace(URL) &&
-                !String.IsNullOrWhiteSpace(Name) &&
-                (item.Name != Name ||
-                item.URL != URL);
+            IsValidURL = URLValidatorHelper.IsValidURL(url);
+
+            return !String.IsNullOrWhiteSpace(url) &&
+                !String.IsNullOrWhiteSpace(name) &&
+                (item.Name != name ||
+                item.URL != url) &&
+                isValidURL;
         }
 
         private async void OnCancel(object obj)
@@ -80,7 +92,7 @@ namespace BlackLion.QRStore.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
-        public async void LoadItemId(int itemId)
+        private async void LoadItemId(int itemId)
         {
             try
             {
@@ -92,5 +104,5 @@ namespace BlackLion.QRStore.ViewModels
             {
             }
         }
-    }
+    } 
 }

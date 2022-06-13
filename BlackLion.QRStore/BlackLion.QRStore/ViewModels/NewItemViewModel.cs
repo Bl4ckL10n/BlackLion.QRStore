@@ -31,6 +31,7 @@ namespace BlackLion.QRStore.ViewModels
         public NewItemViewModel()
         {
             _dataStore = DependencyService.Get<IDataStore<Item>>();
+            Title = "New Item";
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();

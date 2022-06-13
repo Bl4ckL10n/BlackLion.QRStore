@@ -1,4 +1,5 @@
 ﻿using BlackLion.QRStore.Models;
+using BlackLion.QRStore.Services;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -8,6 +9,7 @@ namespace BlackLion.QRStore.ViewModels
 {
     public class NewItemViewModel : BaseViewModel, IQueryAttributable
     {
+        private readonly IDataStore<Item> _dataStore;
         private string name;
         private string url;
 
@@ -28,6 +30,7 @@ namespace BlackLion.QRStore.ViewModels
 
         public NewItemViewModel()
         {
+            _dataStore = DependencyService.Get<IDataStore<Item>>();
             Title = "New Item";
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
@@ -57,7 +60,7 @@ namespace BlackLion.QRStore.ViewModels
                 URL = URL
             };
 
-            await App.Database.AddItemAsync(newItem);
+            await _dataStore.AddItemAsync(newItem);
 
             await Shell.Current.GoToAsync("//ItemsPage");
         }

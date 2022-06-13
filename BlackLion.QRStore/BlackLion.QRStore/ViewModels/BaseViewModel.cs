@@ -1,6 +1,4 @@
-﻿using BlackLion.QRStore.Models;
-using BlackLion.QRStore.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -9,7 +7,6 @@ namespace BlackLion.QRStore.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore { get; set; }
         bool isBusy = false;
         public bool IsBusy
         {

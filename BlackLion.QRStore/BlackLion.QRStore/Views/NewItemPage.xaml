@@ -18,10 +18,27 @@
                    IsTextPredictionEnabled="False"
                    Keyboard="Url"
                    Placeholder="URL"
-                   Text="{Binding URL}"/>
+                   Text="{Binding URL, Mode=TwoWay}">
+                <Entry.Triggers>
+                    <DataTrigger Binding="{Binding IsValidURL}"
+                                 TargetType="Entry"
+                                 Value="false">
+                        <Setter Property="TextColor" Value="Red"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsValidURL}"
+                                 TargetType="Entry"
+                                 Value="true">
+                        <Setter Property="TextColor" Value="Black"/>
+                    </DataTrigger>
+                </Entry.Triggers>
+            </Entry>
             <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Command="{Binding CancelCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Cancel"/>
+                <Button Command="{Binding SaveCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Save"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

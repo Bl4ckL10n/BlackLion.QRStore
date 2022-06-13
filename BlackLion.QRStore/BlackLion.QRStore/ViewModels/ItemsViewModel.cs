@@ -1,4 +1,5 @@
 ﻿using BlackLion.QRStore.Models;
+using BlackLion.QRStore.Services;
 using BlackLion.QRStore.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -10,8 +11,8 @@ namespace BlackLion.QRStore.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
+        private readonly IDataStore<Item> _dataStore;
         private Item _selectedItem;
-
         public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command ScanQRCodeCommand { get; }
@@ -19,6 +20,7 @@ namespace BlackLion.QRStore.ViewModels
 
         public ItemsViewModel()
         {
+            _dataStore = DependencyService.Get<IDataStore<Item>>();
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
@@ -34,7 +36,7 @@ namespace BlackLion.QRStore.ViewModels
             {
                 Items.Clear();
                 
-                var items = await App.Database.GetItemsAsync(true);
+                var items = await _dataStore.GetItemsAsync(true);
                 
                 foreach (var item in items)
                 {

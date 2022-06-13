@@ -11,9 +11,10 @@ namespace BlackLion.QRStore.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
+        private readonly IDataStore<Item> _dataStore;
+        private readonly IMessageService _messageService;
         private Item item;
         private int itemId;
-        private readonly IMessageService _messageService;
 
         public Item Item
         {
@@ -37,6 +38,7 @@ namespace BlackLion.QRStore.ViewModels
 
         public ItemDetailViewModel()
         {
+            _dataStore = DependencyService.Get<IDataStore<Item>>();
             _messageService = DependencyService.Get<IMessageService>();
             ClickVisitButtonCommand = new Command(OnClickVisitButton);
             DeleteItemCommand = new Command(OnDeleteItem);
@@ -47,7 +49,7 @@ namespace BlackLion.QRStore.ViewModels
         {
             try
             {
-                Item = await App.Database.GetItemAsync(itemId);
+                Item = await _dataStore.GetItemAsync(itemId);
                 ItemId = Item.Id;
             }
             catch (Exception)
@@ -70,7 +72,7 @@ namespace BlackLion.QRStore.ViewModels
                 return;
             }
 
-            var isDeleted = await App.Database.DeleteItemAsync(itemId);
+            var isDeleted = await _dataStore.DeleteItemAsync(itemId);
 
             if (!isDeleted)
             {

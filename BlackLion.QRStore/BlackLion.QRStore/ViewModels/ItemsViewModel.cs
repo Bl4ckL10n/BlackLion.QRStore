@@ -12,23 +12,27 @@ namespace BlackLion.QRStore.ViewModels
     public class ItemsViewModel : BaseViewModel
     {
         private readonly IDataStore<Item> _dataStore;
+        private readonly IMessageService _messageService;
         private Item _selectedItem;
         public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command ScanQRCodeCommand { get; }
         public Command<Item> ItemTapped { get; }
+        public Command<Item> SwipeDeleteCommand { get; }
 
         public ItemsViewModel()
         {
             _dataStore = DependencyService.Get<IDataStore<Item>>();
+            _messageService = DependencyService.Get<IMessageService>();
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             ItemTapped = new Command<Item>(OnItemSelected);
             ScanQRCodeCommand = new Command(OnScanButtonClicked);
+            SwipeDeleteCommand = new Command<Item>(async (item) => await OnItemSwept(item));
         }
 
-        async Task ExecuteLoadItemsCommand()
+        private async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
 
@@ -73,12 +77,39 @@ namespace BlackLion.QRStore.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(ScanQRCodePage));
         }
-        async void OnItemSelected(Item item)
+        
+        private async void OnItemSelected(Item item)
         {
             if (item == null)
                 return;
 
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+        }
+
+        private async Task OnItemSwept(Item item)
+        {
+            bool shouldDelete = await _messageService.ShowAsync(
+                "Do you want to delete this entry?",
+                "After pressing \"Yes\" the entry will be erased and you'll be unable to recuperate it.",
+                "Yes",
+                "No"
+            );
+
+            if (!shouldDelete)
+            {
+                return;
+            }
+
+            var isDeleted = await _dataStore.DeleteItemAsync(item.Id);
+
+            if (!isDeleted)
+            {
+                await _messageService.ShowAsync("Oopps!", "We couldn't delete this entry due to an error.", "Ok");
+
+                return;
+            }
+
+            Items.Remove(item);
         }
     }
 }

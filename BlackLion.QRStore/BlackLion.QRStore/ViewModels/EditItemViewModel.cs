@@ -10,6 +10,7 @@ namespace BlackLion.QRStore.ViewModels
     public class EditItemViewModel : BaseViewModel
     {
         private readonly IDataStore<Item> _dataStore;
+        private readonly IMessageService _messageService;
         private bool isValidURL;
         private int itemId;
         private Item item;
@@ -51,6 +52,7 @@ namespace BlackLion.QRStore.ViewModels
         public EditItemViewModel()
         {
             _dataStore = DependencyService.Get<IDataStore<Item>>();
+            _messageService = DependencyService.Get<IMessageService>();
             Title = "Edit";
             CancelCommand = new Command(OnCancel);
             SaveCommand = new Command(OnSave, ValidateSave);
@@ -61,14 +63,27 @@ namespace BlackLion.QRStore.ViewModels
         {
             item.Name = name;
             item.URL = url;
-            var isUpdated = await _dataStore.UpdateItemAsync(item);
+            var duplicatedItem = (await _dataStore.GetItemsAsync()).Find(item => item.URL == url);
 
-            if (!isUpdated)
+            if (duplicatedItem != null)
             {
-                return;
+                await _messageService.ShowAsync(
+                    "Duplicated entry",
+                    "There is an entry for that URL already.",
+                    "Ok"
+                );
             }
+            else
+            {
+                var isUpdated = await _dataStore.UpdateItemAsync(item);
 
-            await Shell.Current.GoToAsync("..");
+                if (!isUpdated)
+                {
+                    return;
+                }
+
+                await Shell.Current.GoToAsync("..");
+            }
         }
 
         private bool ValidateSave(object arg)

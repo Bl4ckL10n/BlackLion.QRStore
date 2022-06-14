@@ -11,6 +11,7 @@ namespace BlackLion.QRStore.ViewModels
     public class NewItemViewModel : BaseViewModel, IQueryAttributable
     {
         private readonly IDataStore<Item> _dataStore;
+        private readonly IMessageService _messageService;
         private bool isValidURL;
         private string name;
         private string url;
@@ -38,6 +39,7 @@ namespace BlackLion.QRStore.ViewModels
         public NewItemViewModel()
         {
             _dataStore = DependencyService.Get<IDataStore<Item>>();
+            _messageService = DependencyService.Get<IMessageService>();
             Title = "New Item";
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
@@ -70,15 +72,27 @@ namespace BlackLion.QRStore.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            var duplicatedItem = (await _dataStore.GetItemsAsync()).Find(item => item.URL == url);
+
+            if (duplicatedItem != null)
             {
-                Name = name,
-                URL = url
-            };
+                await _messageService.ShowAsync(
+                    "Duplicated entry",
+                    "There is an entry for that URL already.",
+                    "Ok"
+                );
+            }
+            else
+            {
+                Item newItem = new Item()
+                {
+                    Name = name,
+                    URL = url
+                };
 
-            await _dataStore.AddItemAsync(newItem);
-
-            await Shell.Current.GoToAsync("//ItemsPage");
+                await _dataStore.AddItemAsync(newItem);
+                await Shell.Current.GoToAsync("//ItemsPage");
+            }
         }
     }
 }

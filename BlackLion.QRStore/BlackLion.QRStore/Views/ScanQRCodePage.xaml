@@ -5,15 +5,15 @@
              xmlns:local="clr-namespace:BlackLion.QRStore.ViewModels"
              x:Class="BlackLion.QRStore.Views.ScanQRCodePage"
              Title="{Binding Title}">
-
     <ContentPage.BindingContext>
         <local:ScanQRCodeViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <zxing:ZXingScannerView IsScanning="{Binding IsScanning}"
-                Options="{Binding Options}"
-                ScanResultCommand="{Binding OnScanResultCommand}"/>
-        </StackLayout>
+                                    Options="{Binding Options}"
+                                    ScanResultCommand="{Binding OnScanResultCommand}"/>
+            <zxing:ZXingDefaultOverlay/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using BlackLion.QRStore.Views;
 using System.Collections.Generic;
+using System.Web;
 using Xamarin.Forms;
 using ZXing;
 using ZXing.Mobile;
@@ -38,10 +39,11 @@ namespace BlackLion.QRStore.ViewModels
         private void OnScanResult(object obj)
         {
             IsScanning = false;
+            var scappedURL = HttpUtility.UrlEncode((obj as Result).Text);
 
             Device.BeginInvokeOnMainThread(async () =>
             {
-                await Shell.Current.GoToAsync($"{nameof(NewItemPage)}?url={(obj as Result).Text}");
+                await Shell.Current.GoToAsync($"{nameof(NewItemPage)}?url={scappedURL}");
             });
         }
     }

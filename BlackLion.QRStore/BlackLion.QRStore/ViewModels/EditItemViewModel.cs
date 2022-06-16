@@ -63,7 +63,7 @@ namespace BlackLion.QRStore.ViewModels
         {
             item.Name = name;
             item.URL = url;
-            var duplicatedItem = (await _dataStore.GetItemsAsync()).Find(item => item.URL == url);
+            var duplicatedItem = (await _dataStore.GetItemsAsync()).Find(item => item.URL == url && item.Id != itemId);
 
             if (duplicatedItem != null)
             {

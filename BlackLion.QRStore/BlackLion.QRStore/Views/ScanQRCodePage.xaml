@@ -12,7 +12,6 @@
         <StackLayout>
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <zxing:ZXingScannerView IsScanning="{Binding IsScanning}"
-                                        Options="{Binding Options}"
                                         ScanResultCommand="{Binding ScanResultCommand}"
                                         x:Name="QRScanner"/>
                 <zxing:ZXingDefaultOverlay/>

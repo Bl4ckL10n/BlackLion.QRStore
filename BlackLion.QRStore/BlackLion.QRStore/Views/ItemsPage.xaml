@@ -7,52 +7,60 @@
              xmlns:model="clr-namespace:BlackLion.QRStore.Models"  
              x:Name="BrowseItemsPage">
     <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="{Binding ToolbarSearchIcon}" Command="{Binding ToggleSearchBarCommand}" />
         <ToolbarItem Text="Scan" Command="{Binding ScanQRCodeCommand}" />
     </ContentPage.ToolbarItems>
-    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <CollectionView ItemsSource="{Binding Items}" SelectionMode="None" x:Name="collectionView">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <SwipeView>
-                        <SwipeView.RightItems>
-                            <SwipeItems Mode="Execute" x:DataType="model:Item">
-                                <SwipeItem BackgroundColor="Red"
-                                           Command="{Binding Source={x:Reference collectionView}, Path=BindingContext.SwipeDeleteCommand}"
-                                           CommandParameter="{Binding .}"
-                                           IconImageSource="icon_delete_sweep.png"
-                                           Text="Delete"/>
-                            </SwipeItems>
-                        </SwipeView.RightItems>
-                        <StackLayout Padding="10" x:DataType="model:Item">
-                            <Label Text="{Binding Name}" 
-                                LineBreakMode="NoWrap" 
-                                FontSize="Medium" />
-                            <Label Text="{Binding URL}" 
-                                LineBreakMode="NoWrap" 
-                                FontSize="Small" />
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                    NumberOfTapsRequired="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
-                                    CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
-                            </StackLayout.GestureRecognizers>
+    <StackLayout>
+        <SearchBar IsVisible="{Binding IsSearchBarVisible}"
+                   Placeholder="Search..."
+                   Text="{Binding SearchBarText}"
+                   SearchCommand="{Binding SearchCommand}"
+                   SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"/>
+        <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <CollectionView ItemsSource="{Binding Items}" SelectionMode="None" x:Name="collectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute" x:DataType="model:Item">
+                                    <SwipeItem BackgroundColor="Red"
+                                               Command="{Binding Source={x:Reference collectionView}, Path=BindingContext.SwipeDeleteCommand}"
+                                               CommandParameter="{Binding .}"
+                                               IconImageSource="icon_delete_sweep.png"
+                                               Text="Delete"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <StackLayout Padding="10" x:DataType="model:Item">
+                                <Label Text="{Binding Name}" 
+                                    LineBreakMode="NoWrap" 
+                                    FontSize="Medium" />
+                                <Label Text="{Binding URL}" 
+                                    LineBreakMode="NoWrap" 
+                                    FontSize="Small" />
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <StackLayout HorizontalOptions="CenterAndExpand"
+                                         VerticalOptions="CenterAndExpand">
+                            <Label FontSize="Medium"
+                                       HorizontalOptions="Fill"
+                                       HorizontalTextAlignment="Center"
+                                       Margin="10,25,10,10"
+                                       Text="Start scanning to see your links here."/>
                         </StackLayout>
-                    </SwipeView>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.EmptyView>
-                <ContentView>
-                    <StackLayout HorizontalOptions="CenterAndExpand"
-                                     VerticalOptions="CenterAndExpand">
-                        <Label FontSize="Medium"
-                                   HorizontalOptions="Fill"
-                                   HorizontalTextAlignment="Center"
-                                   Margin="10,25,10,10"
-                                   Text="Start scanning to see your links here."/>
-                    </StackLayout>
-                </ContentView>
-            </CollectionView.EmptyView>
-        </CollectionView>
-    </RefreshView>
+                    </ContentView>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+    </StackLayout>
 </ContentPage>

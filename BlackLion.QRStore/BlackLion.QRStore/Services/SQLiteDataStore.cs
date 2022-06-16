@@ -1,7 +1,7 @@
 ﻿using BlackLion.QRStore.Models;
 using SQLite;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlackLion.QRStore.Services
@@ -68,6 +68,13 @@ namespace BlackLion.QRStore.Services
         public async Task<List<Item>> GetItemsAsync(bool forceRefresh = false)
         {
             return await database.Table<Item>().ToListAsync();
+        }
+
+        public async Task<List<Item>> FindAllByPredicateAsync(Predicate<Item> predicate)
+        {
+            var items = await database.Table<Item>().ToListAsync();
+
+            return items.FindAll(predicate);
         }
     }
 }

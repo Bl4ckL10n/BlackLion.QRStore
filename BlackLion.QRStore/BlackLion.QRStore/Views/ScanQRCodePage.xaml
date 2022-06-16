@@ -9,11 +9,17 @@
         <local:ScanQRCodeViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <zxing:ZXingScannerView IsScanning="{Binding IsScanning}"
-                                    Options="{Binding Options}"
-                                    ScanResultCommand="{Binding OnScanResultCommand}"/>
-            <zxing:ZXingDefaultOverlay/>
-        </Grid>
+        <StackLayout>
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <zxing:ZXingScannerView IsScanning="{Binding IsScanning}"
+                                        Options="{Binding Options}"
+                                        ScanResultCommand="{Binding ScanResultCommand}"
+                                        x:Name="QRScanner"/>
+                <zxing:ZXingDefaultOverlay/>
+            </Grid>
+            <Button Clicked="OnFlashButtonClicked"
+                    Margin="5,0,5,5"
+                    Text="Flash"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

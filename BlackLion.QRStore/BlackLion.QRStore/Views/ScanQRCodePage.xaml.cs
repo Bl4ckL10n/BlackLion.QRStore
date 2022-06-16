@@ -10,5 +10,10 @@ namespace BlackLion.QRStore.Views
         {
             InitializeComponent();
         }
+
+        private void OnFlashButtonClicked(object sender, System.EventArgs e)
+        {
+            QRScanner.IsTorchOn = !QRScanner.IsTorchOn;
+        }
     }
 }

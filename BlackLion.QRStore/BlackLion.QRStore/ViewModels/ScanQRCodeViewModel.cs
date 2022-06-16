@@ -23,7 +23,7 @@ namespace BlackLion.QRStore.ViewModels
             set => SetProperty(ref options, value);
         }
 
-        public Command OnScanResultCommand { get; }
+        public Command ScanResultCommand { get; }
 
         public ScanQRCodeViewModel()
         {
@@ -33,7 +33,7 @@ namespace BlackLion.QRStore.ViewModels
                 BarcodeFormat.QR_CODE
             };
             IsScanning = true;
-            OnScanResultCommand = new Command(OnScanResult);
+            ScanResultCommand = new Command(OnScanResult);
         }
 
         private void OnScanResult(object obj)

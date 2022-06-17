@@ -3,18 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:BlackLion.QRStore.ViewModels"
              x:Class="BlackLion.QRStore.Views.EditItemPage"
+             xmlns:resources="clr-namespace:BlackLion.QRStore.Localization"
              Title="{Binding Title}">
     <ContentPage.BindingContext>
         <local:EditItemViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
-            <Entry Text="{Binding Name}" FontSize="Medium" Placeholder="Name"/>
+            <Entry FontSize="Medium"
+                   Placeholder="{x:Static resources:EditItemPageResources.Entry_Placeholder_Name}"
+                   Text="{Binding Name}"/>
             <Entry FontSize="Medium"
                    IsSpellCheckEnabled="False" 
                    IsTextPredictionEnabled="False"
                    Keyboard="Url"
-                   Placeholder="URL"
+                   Placeholder="{x:Static resources:EditItemPageResources.Entry_Placeholder_URL}"
                    Text="{Binding URL, Mode=TwoWay}">
                 <Entry.Triggers>
                     <DataTrigger Binding="{Binding IsValidURL}" TargetType="Entry" Value="false">
@@ -28,10 +31,10 @@
             <StackLayout Orientation="Horizontal">
                 <Button Command="{Binding CancelCommand}"
                         HorizontalOptions="FillAndExpand"
-                        Text="Cancel"/>
+                        Text="{x:Static resources:EditItemPageResources.Button_Cancel}"/>
                 <Button Command="{Binding SaveCommand}"
                         HorizontalOptions="FillAndExpand"
-                        Text="Save"/>
+                        Text="{x:Static resources:EditItemPageResources.Button_Save}"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

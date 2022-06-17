@@ -4,19 +4,22 @@
              x:Class="BlackLion.QRStore.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:BlackLion.QRStore.ViewModels"  
-             xmlns:model="clr-namespace:BlackLion.QRStore.Models"  
+             xmlns:model="clr-namespace:BlackLion.QRStore.Models"
+             xmlns:resources="clr-namespace:BlackLion.QRStore.Localization"
              x:Name="BrowseItemsPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="{Binding ToolbarSearchIcon}" Command="{Binding ToggleSearchBarCommand}" />
-        <ToolbarItem Text="Scan" Command="{Binding ScanQRCodeCommand}" />
+        <ToolbarItem Command="{Binding ToggleSearchBarCommand}" IconImageSource="{Binding ToolbarSearchIcon}"/>
+        <ToolbarItem Command="{Binding ScanQRCodeCommand}" Text="{x:Static resources:ItemsPageResources.ToolbarItem_Scan}"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
         <SearchBar IsVisible="{Binding IsSearchBarVisible}"
-                   Placeholder="Search..."
+                   Placeholder="{x:Static resources:ItemsPageResources.SearchBar_Search}"
                    Text="{Binding SearchBarText}"
                    SearchCommand="{Binding SearchCommand}"
                    SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"/>
-        <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <RefreshView Command="{Binding LoadItemsCommand}"
+                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     x:DataType="local:ItemsViewModel">
             <CollectionView ItemsSource="{Binding Items}" SelectionMode="None" x:Name="collectionView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -27,16 +30,16 @@
                                                Command="{Binding Source={x:Reference collectionView}, Path=BindingContext.SwipeDeleteCommand}"
                                                CommandParameter="{Binding .}"
                                                IconImageSource="icon_delete_sweep.png"
-                                               Text="Delete"/>
+                                               Text="{x:Static resources:ItemsPageResources.SwipeItem_Delete}"/>
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <StackLayout Padding="10" x:DataType="model:Item">
-                                <Label Text="{Binding Name}" 
-                                    LineBreakMode="NoWrap" 
-                                    FontSize="Medium" />
-                                <Label Text="{Binding URL}" 
-                                    LineBreakMode="NoWrap" 
-                                    FontSize="Small" />
+                                <Label FontSize="Medium"
+                                       LineBreakMode="NoWrap"
+                                       Text="{Binding Name}"/>
+                                <Label FontSize="Small"
+                                       LineBreakMode="NoWrap"
+                                       Text="{Binding URL}"/>
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         NumberOfTapsRequired="1"
@@ -51,12 +54,12 @@
                 <CollectionView.EmptyView>
                     <ContentView>
                         <StackLayout HorizontalOptions="CenterAndExpand"
-                                         VerticalOptions="CenterAndExpand">
+                                     VerticalOptions="CenterAndExpand">
                             <Label FontSize="Medium"
-                                       HorizontalOptions="Fill"
-                                       HorizontalTextAlignment="Center"
-                                       Margin="10,25,10,10"
-                                       Text="Start scanning to see your links here."/>
+                                   HorizontalOptions="Fill"
+                                   HorizontalTextAlignment="Center"
+                                   Margin="10,25,10,10"
+                                   Text="{x:Static resources:ItemsPageResources.Label_No_Data}"/>
                         </StackLayout>
                     </ContentView>
                 </CollectionView.EmptyView>

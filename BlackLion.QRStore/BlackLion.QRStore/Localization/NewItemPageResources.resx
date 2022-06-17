@@ -123,11 +123,17 @@
   <data name="Button_Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="Button_Visit_Now" xml:space="preserve">
+    <value>Visit now</value>
+  </data>
   <data name="Entry_Name_Placeholder" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="Entry_URL_Placeholder" xml:space="preserve">
     <value>URL</value>
+  </data>
+  <data name="Label_Or" xml:space="preserve">
+    <value>Or</value>
   </data>
   <data name="Page_Title" xml:space="preserve">
     <value>New Item</value>
@@ -140,5 +146,14 @@
   </data>
   <data name="Save_Modal_Title" xml:space="preserve">
     <value>Duplicated entry</value>
+  </data>
+  <data name="Visit_Now_Modal_Content" xml:space="preserve">
+    <value>We couldn't open this webpage due to an error.</value>
+  </data>
+  <data name="Visit_Now_Modal_Ok_Option" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Visit_Now_Modal_Title" xml:space="preserve">
+    <value>Oopps!</value>
   </data>
 </root>

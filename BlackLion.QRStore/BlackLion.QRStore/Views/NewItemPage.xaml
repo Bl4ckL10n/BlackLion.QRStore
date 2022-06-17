@@ -12,7 +12,7 @@
         <local:NewItemViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Padding="15" Spacing="3">
+        <StackLayout Padding="15" Spacing="10">
             <Entry FontSize="Medium"
                    Placeholder="{x:Static resources:NewItemPageResources.Entry_Name_Placeholder}"
                    Text="{Binding Name}"/>
@@ -43,6 +43,10 @@
                         HorizontalOptions="FillAndExpand"
                         Text="{x:Static resources:NewItemPageResources.Button_Save}"/>
             </StackLayout>
+            <Label FontSize="Medium"
+                   HorizontalOptions="Center"
+                   Text="{x:Static resources:NewItemPageResources.Label_Or}"/>
+            <Button Command="{Binding VisitNowCommand}" Text="{x:Static resources:NewItemPageResources.Button_Visit_Now}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

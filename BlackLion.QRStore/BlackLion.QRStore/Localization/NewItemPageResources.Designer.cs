@@ -79,6 +79,15 @@ namespace BlackLion.QRStore.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Visit now.
+        /// </summary>
+        internal static string Button_Visit_Now {
+            get {
+                return ResourceManager.GetString("Button_Visit_Now", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Entry_Name_Placeholder {
@@ -93,6 +102,15 @@ namespace BlackLion.QRStore.Localization {
         internal static string Entry_URL_Placeholder {
             get {
                 return ResourceManager.GetString("Entry_URL_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Or.
+        /// </summary>
+        internal static string Label_Or {
+            get {
+                return ResourceManager.GetString("Label_Or", resourceCulture);
             }
         }
         
@@ -129,6 +147,33 @@ namespace BlackLion.QRStore.Localization {
         internal static string Save_Modal_Title {
             get {
                 return ResourceManager.GetString("Save_Modal_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We couldn&apos;t open this webpage due to an error..
+        /// </summary>
+        internal static string Visit_Now_Modal_Content {
+            get {
+                return ResourceManager.GetString("Visit_Now_Modal_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string Visit_Now_Modal_Ok_Option {
+            get {
+                return ResourceManager.GetString("Visit_Now_Modal_Ok_Option", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oopps!.
+        /// </summary>
+        internal static string Visit_Now_Modal_Title {
+            get {
+                return ResourceManager.GetString("Visit_Now_Modal_Title", resourceCulture);
             }
         }
     }

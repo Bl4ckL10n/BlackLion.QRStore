@@ -4,7 +4,9 @@ using BlackLion.QRStore.Models;
 using BlackLion.QRStore.Services;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BlackLion.QRStore.ViewModels
@@ -36,6 +38,7 @@ namespace BlackLion.QRStore.ViewModels
 
         public Command CancelCommand { get; }
         public Command SaveCommand { get; }
+        public Command VisitNowCommand { get; }
 
         public NewItemViewModel()
         {
@@ -43,7 +46,8 @@ namespace BlackLion.QRStore.ViewModels
             _messageService = DependencyService.Get<IMessageService>();
             Title = NewItemPageResources.Page_Title;
             SaveCommand = new Command(OnSave, ValidateSave);
-            CancelCommand = new Command(OnCancel);
+            CancelCommand = new Command(async () => await OnCancel());
+            VisitNowCommand = new Command(async() => await OnVisitNow());
             PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
         }
 
@@ -56,8 +60,8 @@ namespace BlackLion.QRStore.ViewModels
 
             IsValidURL = URLValidatorHelper.IsValidURL(URL);
 
-            return !String.IsNullOrWhiteSpace(url) &&
-                !String.IsNullOrWhiteSpace(name) &&
+            return !string.IsNullOrWhiteSpace(url) &&
+                !string.IsNullOrWhiteSpace(name) &&
                 isValidURL;
         }
 
@@ -66,7 +70,7 @@ namespace BlackLion.QRStore.ViewModels
             URL = HttpUtility.UrlDecode(query["url"]);
         }
 
-        private async void OnCancel()
+        private async Task OnCancel()
         {
             await Shell.Current.GoToAsync("//ItemsPage");
         }
@@ -93,6 +97,29 @@ namespace BlackLion.QRStore.ViewModels
 
                 await _dataStore.AddItemAsync(newItem);
                 await Shell.Current.GoToAsync("//ItemsPage");
+            }
+        }
+
+        private async Task OnVisitNow()
+        {
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    await Browser.OpenAsync(url, BrowserLaunchMode.SystemPreferred);
+                }).ContinueWith(async _ =>
+                {
+                    await Task.Delay(300);
+                    await Shell.Current.GoToAsync("//ItemsPage");
+                });
+            }
+            catch (Exception)
+            {
+                await _messageService.ShowAsync(
+                    NewItemPageResources.Visit_Now_Modal_Title,
+                    NewItemPageResources.Visit_Now_Modal_Content,
+                    NewItemPageResources.Visit_Now_Modal_Ok_Option
+                );
             }
         }
     }

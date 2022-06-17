@@ -1,4 +1,5 @@
-﻿using BlackLion.QRStore.Views;
+﻿using BlackLion.QRStore.Localization;
+using BlackLion.QRStore.Views;
 using System.Web;
 using Xamarin.Forms;
 using ZXing;
@@ -19,7 +20,7 @@ namespace BlackLion.QRStore.ViewModels
 
         public ScanQRCodeViewModel()
         {
-            Title = "Scan";
+            Title = ScanQRCodePageResources.Page_Title;
             IsScanning = true;
             ScanResultCommand = new Command(OnScanResult);
         }

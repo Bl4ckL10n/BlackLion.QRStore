@@ -3,31 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:BlackLion.QRStore.ViewModels"
              x:Class="BlackLion.QRStore.Views.ItemDetailPage"
+             xmlns:resources="clr-namespace:BlackLion.QRStore.Localization"
              Title="{Binding Title}">
-
     <ContentPage.BindingContext>
         <local:ItemDetailViewModel/>
     </ContentPage.BindingContext>
-
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding DeleteItemCommand}"
                      Order="Secondary"
-                     Text="Delete"/>
+                     Text="{x:Static resources:ItemDetailPageResources.Toolbar_Item_Delete}"/>
         <ToolbarItem Command="{Binding EditItemCommand}"
                      Order="Secondary"
-                     Text="Edit"/>
+                     Text="{x:Static resources:ItemDetailPageResources.Toolbar_Item_Edit}"/>
     </ContentPage.ToolbarItems>
-
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Name:"
+    <StackLayout Padding="15" Spacing="20">
+        <Label FontAttributes="Bold"
                FontSize="Medium"
-               FontAttributes="Bold"/>
-        <Label Text="{Binding Item.Name}" FontSize="Small"/>
-        <Label Text="URL:"
+               Text="{x:Static resources:ItemDetailPageResources.Label_Name}"/>
+        <Label FontSize="Small" Text="{Binding Item.Name}"/>
+        <Label FontAttributes="Bold"
                FontSize="Medium"
-               FontAttributes="Bold"/>
-        <Label Text="{Binding Item.URL}" FontSize="Small"/>
-        <Button Text="Visit" Command="{Binding ClickVisitButtonCommand}"/>
+               Text="{x:Static resources:ItemDetailPageResources.Label_URL}"/>
+        <Label FontSize="Small" Text="{Binding Item.URL}"/>
+        <Button Command="{Binding ClickVisitButtonCommand}" Text="{x:Static resources:ItemDetailPageResources.Button_Visit}"/>
     </StackLayout>
-    
 </ContentPage>

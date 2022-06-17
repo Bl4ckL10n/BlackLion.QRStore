@@ -1,4 +1,5 @@
 ﻿using BlackLion.QRStore.Helpers;
+using BlackLion.QRStore.Localization;
 using BlackLion.QRStore.Models;
 using BlackLion.QRStore.Services;
 using System;
@@ -40,7 +41,7 @@ namespace BlackLion.QRStore.ViewModels
         {
             _dataStore = DependencyService.Get<IDataStore<Item>>();
             _messageService = DependencyService.Get<IMessageService>();
-            Title = "New Item";
+            Title = NewItemPageResources.Page_Title;
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
@@ -77,9 +78,9 @@ namespace BlackLion.QRStore.ViewModels
             if (duplicatedItem != null)
             {
                 await _messageService.ShowAsync(
-                    "Duplicated entry",
-                    "There is an entry for that URL already.",
-                    "Ok"
+                    NewItemPageResources.Save_Modal_Title,
+                    NewItemPageResources.Save_Modal_Content,
+                    NewItemPageResources.Save_Modal_Ok_Button
                 );
             }
             else

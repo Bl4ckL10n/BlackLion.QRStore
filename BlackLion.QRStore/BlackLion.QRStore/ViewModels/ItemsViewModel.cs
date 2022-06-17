@@ -1,4 +1,5 @@
-﻿using BlackLion.QRStore.Models;
+﻿using BlackLion.QRStore.Localization;
+using BlackLion.QRStore.Models;
 using BlackLion.QRStore.Services;
 using BlackLion.QRStore.Views;
 using System;
@@ -51,7 +52,7 @@ namespace BlackLion.QRStore.ViewModels
         {
             _dataStore = DependencyService.Get<IDataStore<Item>>();
             _messageService = DependencyService.Get<IMessageService>();
-            Title = "Browse";
+            Title = ItemsPageResources.Page_Title;
             Items = new ObservableCollection<Item>();
             IsSearchBarVisible = false;
             SearchBarText = string.Empty;
@@ -121,10 +122,10 @@ namespace BlackLion.QRStore.ViewModels
         private async Task OnItemSwept(Item item)
         {
             bool shouldDelete = await _messageService.ShowAsync(
-                "Do you want to delete this entry?",
-                "After pressing \"Yes\" the entry will be erased and you'll be unable to recuperate it.",
-                "Yes",
-                "No"
+                ItemsPageResources.Modal_Item_Swept_Title,
+                ItemsPageResources.Modal_Item_Swept_Content,
+                ItemsPageResources.Modal_Item_Swept_Yes_Option,
+                ItemsPageResources.Modal_Item_Swept_No_Option
             );
 
             if (!shouldDelete)
@@ -136,7 +137,11 @@ namespace BlackLion.QRStore.ViewModels
 
             if (!isDeleted)
             {
-                await _messageService.ShowAsync("Oopps!", "We couldn't delete this entry due to an error.", "Ok");
+                await _messageService.ShowAsync(
+                    ItemsPageResources.Modal_Item_Swept_Error_Title,
+                    ItemsPageResources.Modal_Item_Swept_Error_Content,
+                    ItemsPageResources.Modal_Item_Swept_Error_Yes_Option
+                );
 
                 return;
             }

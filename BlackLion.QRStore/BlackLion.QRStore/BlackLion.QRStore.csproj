@@ -14,6 +14,72 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Localization\AboutPageResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AboutPageResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\AppShellResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppShellResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\EditItemPageResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EditItemPageResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\ItemDetailPageResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ItemDetailPageResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\ItemsPageResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ItemsPageResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\NewItemPageResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NewItemPageResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\ScanQRCodePageResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ScanQRCodePageResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\AboutPageResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AboutPageResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\AppShellResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppShellResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\EditItemPageResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditItemPageResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\ItemDetailPageResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ItemDetailPageResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\ItemsPageResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ItemsPageResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\NewItemPageResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NewItemPageResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\ScanQRCodePageResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ScanQRCodePageResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\EditItemPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

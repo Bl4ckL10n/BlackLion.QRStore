@@ -94,7 +94,7 @@ namespace BlackLion.QRStore.ViewModels
                 return false;
             }
 
-            IsValidURL = URLValidatorHelper.IsValidURL(url);
+            IsValidURL = URLHelper.IsValid(url);
 
             return !String.IsNullOrWhiteSpace(url) &&
                 !String.IsNullOrWhiteSpace(name) &&

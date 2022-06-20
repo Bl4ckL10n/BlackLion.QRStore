@@ -1,4 +1,5 @@
-﻿using BlackLion.QRStore.Localization;
+﻿using BlackLion.QRStore.Helpers;
+using BlackLion.QRStore.Localization;
 using BlackLion.QRStore.Models;
 using BlackLion.QRStore.Services;
 using BlackLion.QRStore.Views;
@@ -94,6 +95,8 @@ namespace BlackLion.QRStore.ViewModels
         {
             try
             {
+                item.URL = URLHelper.NormalizeURL(item.URL);
+
                 await Browser.OpenAsync(item.URL, BrowserLaunchMode.SystemPreferred);
             }
             catch (Exception)

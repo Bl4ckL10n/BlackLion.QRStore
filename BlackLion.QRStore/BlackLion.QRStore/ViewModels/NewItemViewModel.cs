@@ -58,7 +58,7 @@ namespace BlackLion.QRStore.ViewModels
                 return false;
             }
 
-            IsValidURL = URLValidatorHelper.IsValidURL(URL);
+            IsValidURL = URLHelper.IsValid(URL);
 
             return !string.IsNullOrWhiteSpace(url) &&
                 !string.IsNullOrWhiteSpace(name) &&
@@ -67,7 +67,7 @@ namespace BlackLion.QRStore.ViewModels
 
         public void ApplyQueryAttributes(IDictionary<string, string> query)
         {
-            URL = HttpUtility.UrlDecode(query["url"]);
+            URL = URLHelper.NormalizeURL(HttpUtility.UrlDecode(query["url"]));
         }
 
         private async Task OnCancel()

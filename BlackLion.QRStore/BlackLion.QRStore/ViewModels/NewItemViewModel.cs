@@ -104,14 +104,13 @@ namespace BlackLion.QRStore.ViewModels
         {
             try
             {
-                await Task.Run(async () =>
-                {
-                    await Browser.OpenAsync(url, BrowserLaunchMode.SystemPreferred);
-                }).ContinueWith(async _ =>
-                {
-                    await Task.Delay(300);
-                    await Shell.Current.GoToAsync("//ItemsPage");
-                });
+                await Browser
+                    .OpenAsync(url, BrowserLaunchMode.SystemPreferred)
+                    .ContinueWith(async (_) =>
+                    {
+                        await Task.Delay(100);
+                        await Shell.Current.GoToAsync("//ItemsPage");
+                    });
             }
             catch (Exception)
             {

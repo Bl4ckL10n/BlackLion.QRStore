@@ -14,7 +14,7 @@ namespace BlackLion.QRStore.Helpers
 
         public static string NormalizeURL(string URL)
         {
-            if (!URL.StartsWith("http://") || !URL.StartsWith("https://"))
+            if (!URL.StartsWith("http://") && !URL.StartsWith("https://"))
             {
                 return "http://" + URL;
             }

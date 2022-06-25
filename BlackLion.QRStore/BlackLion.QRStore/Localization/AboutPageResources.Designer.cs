@@ -61,6 +61,33 @@ namespace BlackLion.QRStore.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This app was developed by Max Almonte and collaborators and is distributed under the GPL v3 license, you can get in touch with me at .
+        /// </summary>
+        internal static string First_Span_About_First_Line {
+            get {
+                return ResourceManager.GetString("First_Span_About_First_Line", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @maxalmonte14.
+        /// </summary>
+        internal static string First_Span_About_Second_Line {
+            get {
+                return ResourceManager.GetString("First_Span_About_Second_Line", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ..
+        /// </summary>
+        internal static string First_Span_About_Third_Line {
+            get {
+                return ResourceManager.GetString("First_Span_About_Third_Line", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         internal static string Page_Title {
@@ -70,29 +97,29 @@ namespace BlackLion.QRStore.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This app was developed by Max Almonte and is distributed under the GPL v3 license, you can get in touch with me at .
+        ///   Looks up a localized string similar to If you would like to report a bug or request a new feature please .
         /// </summary>
-        internal static string Span_About_First_Line {
+        internal static string Second_Span_About_First_Line {
             get {
-                return ResourceManager.GetString("Span_About_First_Line", resourceCulture);
+                return ResourceManager.GetString("Second_Span_About_First_Line", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to @maxalmonte14.
+        ///   Looks up a localized string similar to create an issue on GitHub.
         /// </summary>
-        internal static string Span_About_Second_Line {
+        internal static string Second_Span_About_Second_Line {
             get {
-                return ResourceManager.GetString("Span_About_Second_Line", resourceCulture);
+                return ResourceManager.GetString("Second_Span_About_Second_Line", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ..
         /// </summary>
-        internal static string Span_About_Third_Line {
+        internal static string Second_Span_About_Third_Line {
             get {
-                return ResourceManager.GetString("Span_About_Third_Line", resourceCulture);
+                return ResourceManager.GetString("Second_Span_About_Third_Line", resourceCulture);
             }
         }
     }

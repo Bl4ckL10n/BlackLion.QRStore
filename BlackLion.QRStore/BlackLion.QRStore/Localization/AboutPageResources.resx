@@ -117,16 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="First_Span_About_First_Line" xml:space="preserve">
+    <value>This app was developed by Max Almonte and collaborators and is distributed under the GPL v3 license, you can get in touch with me at </value>
+  </data>
+  <data name="First_Span_About_Second_Line" xml:space="preserve">
+    <value>@maxalmonte14</value>
+  </data>
+  <data name="First_Span_About_Third_Line" xml:space="preserve">
+    <value>.</value>
+  </data>
   <data name="Page_Title" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="Span_About_First_Line" xml:space="preserve">
-    <value>This app was developed by Max Almonte and is distributed under the GPL v3 license, you can get in touch with me at </value>
+  <data name="Second_Span_About_First_Line" xml:space="preserve">
+    <value>If you would like to report a bug or request a new feature please </value>
   </data>
-  <data name="Span_About_Second_Line" xml:space="preserve">
-    <value>@maxalmonte14</value>
+  <data name="Second_Span_About_Second_Line" xml:space="preserve">
+    <value>create an issue on GitHub</value>
   </data>
-  <data name="Span_About_Third_Line" xml:space="preserve">
+  <data name="Second_Span_About_Third_Line" xml:space="preserve">
     <value>.</value>
   </data>
 </root>

@@ -8,12 +8,12 @@
     <ContentPage.BindingContext>
         <vm:AboutViewModel />
     </ContentPage.BindingContext>
-    <StackLayout Orientation="Horizontal">
-        <Label HorizontalOptions="Center" Margin="10,15,10,0" FontSize="Medium">
+    <StackLayout Orientation="Vertical">
+        <Label FontSize="Medium" HorizontalOptions="Center" Margin="15,15,15,0">
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="{x:Static resources:AboutPageResources.Span_About_First_Line}"/>
-                    <Span Text="{x:Static resources:AboutPageResources.Span_About_Second_Line}"
+                    <Span Text="{x:Static resources:AboutPageResources.First_Span_About_First_Line}"/>
+                    <Span Text="{x:Static resources:AboutPageResources.First_Span_About_Second_Line}"
                           TextColor="Blue"
                           TextDecorations="Underline">
                         <Span.GestureRecognizers>
@@ -21,7 +21,24 @@
                                                   CommandParameter="https://twitter.com/maxalmonte14"/>
                         </Span.GestureRecognizers>
                     </Span>
-                    <Span Text="{x:Static resources:AboutPageResources.Span_About_Third_Line}"/>
+                    <Span Text="{x:Static resources:AboutPageResources.First_Span_About_Third_Line}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label FontSize="Medium" HorizontalOptions="Center" Margin="15,15,15,0">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="{x:Static resources:AboutPageResources.Second_Span_About_First_Line}"/>
+                    <Span Text="{x:Static resources:AboutPageResources.Second_Span_About_Second_Line}"
+                          TextColor="Blue"
+                          TextDecorations="Underline">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ClickCommand}"
+                                                  CommandParameter="https://github.com/Bl4ckL10n/BlackLion.QRStore/issues"/>
+                        </Span.GestureRecognizers>
+                    </Span>
+                    <Span Text="{x:Static resources:AboutPageResources.Second_Span_About_Third_Line}"/>
                 </FormattedString>
             </Label.FormattedText>
         </Label>

@@ -45,6 +45,9 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
     <AndroidUseDefaultAotProfile>false</AndroidUseDefaultAotProfile>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />

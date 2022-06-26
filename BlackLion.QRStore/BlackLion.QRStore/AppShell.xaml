@@ -2,9 +2,9 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:BlackLion.QRStore.Views"
+       xmlns:resources="clr-namespace:BlackLion.QRStore.Localization"
        Title="BlackLion.QRStore"
        x:Class="BlackLion.QRStore.AppShell">
-
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
@@ -20,7 +20,6 @@
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
-
             <Style Class="FlyoutItemLabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="White"></Setter>
             </Style>
@@ -60,11 +59,10 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <FlyoutItem Title="Browse" Icon="icon_feed.png">
+    <FlyoutItem Icon="icon_feed.png" Title="{x:Static resources:AppShellResources.FlyoutItem_Browse}">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="About" Icon="icon_about.png">
+    <FlyoutItem Icon="icon_about.png" Title="{x:Static resources:AppShellResources.FlyoutItem_About}">
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
-
 </Shell>

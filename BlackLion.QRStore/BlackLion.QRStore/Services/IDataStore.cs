@@ -11,5 +11,6 @@ namespace BlackLion.QRStore.Services
         Task<bool> DeleteItemAsync(int id);
         Task<T> GetItemAsync(int id);
         Task<List<T>> GetItemsAsync(bool forceRefresh = false);
+        Task<List<T>> FindAllByPredicateAsync(Predicate<T> predicate);
     }
 }

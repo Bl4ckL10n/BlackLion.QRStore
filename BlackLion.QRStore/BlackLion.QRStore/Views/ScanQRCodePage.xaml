@@ -3,17 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              xmlns:local="clr-namespace:BlackLion.QRStore.ViewModels"
+             xmlns:resources="clr-namespace:BlackLion.QRStore.Localization"
              x:Class="BlackLion.QRStore.Views.ScanQRCodePage"
              Title="{Binding Title}">
-
     <ContentPage.BindingContext>
         <local:ScanQRCodeViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <zxing:ZXingScannerView IsScanning="{Binding IsScanning}"
-                Options="{Binding Options}"
-                ScanResultCommand="{Binding OnScanResultCommand}"/>
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <zxing:ZXingScannerView IsScanning="{Binding IsScanning}"
+                                        ScanResultCommand="{Binding ScanResultCommand}"
+                                        x:Name="QRScanner"/>
+                <zxing:ZXingDefaultOverlay/>
+            </Grid>
+            <Button Clicked="OnFlashButtonClicked"
+                    Margin="5,0,5,5"
+                    Text="{x:Static resources:ScanQRCodePageResources.Button_Flash}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

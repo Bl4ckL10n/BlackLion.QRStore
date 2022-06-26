@@ -3,22 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BlackLion.QRStore.Views.NewItemPage"
              Shell.PresentationMode="ModalAnimated"
-             Title="New Item"
+             Title="{Binding Title}"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:local="clr-namespace:BlackLion.QRStore.ViewModels"
+             xmlns:resources="clr-namespace:BlackLion.QRStore.Localization"
              ios:Page.UseSafeArea="true">
     <ContentPage.BindingContext>
         <local:NewItemViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Spacing="3" Padding="15">
-            <Entry Text="{Binding Name, Mode=TwoWay}" FontSize="Medium" Placeholder="Name"/>
-            <Entry Text="{Binding URL, Mode=TwoWay}" FontSize="Medium" Placeholder="URL"/>
+        <StackLayout Padding="15" Spacing="10">
+            <Entry FontSize="Medium"
+                   Placeholder="{x:Static resources:NewItemPageResources.Entry_Name_Placeholder}"
+                   Text="{Binding Name}"/>
+            <Entry FontSize="Medium"
+                   IsSpellCheckEnabled="False" 
+                   IsTextPredictionEnabled="False"
+                   Keyboard="Url"
+                   Placeholder="{x:Static resources:NewItemPageResources.Entry_URL_Placeholder}"
+                   Text="{Binding URL, Mode=TwoWay}">
+                <Entry.Triggers>
+                    <DataTrigger Binding="{Binding IsValidURL}"
+                                 TargetType="Entry"
+                                 Value="false">
+                        <Setter Property="TextColor" Value="Red"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsValidURL}"
+                                 TargetType="Entry"
+                                 Value="true">
+                        <Setter Property="TextColor" Value="Black"/>
+                    </DataTrigger>
+                </Entry.Triggers>
+            </Entry>
             <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Command="{Binding CancelCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{x:Static resources:NewItemPageResources.Button_Cancel}"/>
+                <Button Command="{Binding SaveCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{x:Static resources:NewItemPageResources.Button_Save}"/>
             </StackLayout>
+            <Label FontSize="Medium"
+                   HorizontalOptions="Center"
+                   Text="{x:Static resources:NewItemPageResources.Label_Or}"/>
+            <Button Command="{Binding VisitNowCommand}" Text="{x:Static resources:NewItemPageResources.Button_Visit_Now}"/>
         </StackLayout>
     </ContentPage.Content>
-    
 </ContentPage>

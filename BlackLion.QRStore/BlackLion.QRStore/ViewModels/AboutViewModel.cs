@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlackLion.QRStore.Localization;
+using System;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -14,7 +15,7 @@ namespace BlackLion.QRStore.ViewModels
 
         public AboutViewModel()
         {
-            Title = "About";
+            Title = AboutPageResources.Page_Title;
         }
     }
 }

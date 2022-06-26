@@ -1,4 +1,7 @@
-﻿using BlackLion.QRStore.Models;
+﻿using BlackLion.QRStore.Helpers;
+using BlackLion.QRStore.Localization;
+using BlackLion.QRStore.Models;
+using BlackLion.QRStore.Services;
 using System;
 using Xamarin.Forms;
 
@@ -7,13 +10,24 @@ namespace BlackLion.QRStore.ViewModels
     [QueryProperty(nameof(ItemId), "id")]
     public class EditItemViewModel : BaseViewModel
     {
+        private readonly IDataStore<Item> _dataStore;
+        private readonly IMessageService _messageService;
+        private bool isValidURL;
         private int itemId;
         private Item item;
         private string name;
         private string url;
 
         public Command CancelCommand { get; }
+
         public Command SaveCommand { get; }
+
+        public bool IsValidURL
+        {
+            get => isValidURL;
+            set => SetProperty(ref isValidURL, value);
+        }
+
         public int ItemId
         {
             get => itemId;
@@ -38,6 +52,9 @@ namespace BlackLion.QRStore.ViewModels
 
         public EditItemViewModel()
         {
+            _dataStore = DependencyService.Get<IDataStore<Item>>();
+            _messageService = DependencyService.Get<IMessageService>();
+            Title = EditItemPageResources.Page_Title;
             CancelCommand = new Command(OnCancel);
             SaveCommand = new Command(OnSave, ValidateSave);
             PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
@@ -45,29 +62,45 @@ namespace BlackLion.QRStore.ViewModels
 
         private async void OnSave(object obj)
         {
-            item.Name = Name;
-            item.URL = URL;
-            var isUpdated = await App.Database.UpdateItemAsync(item);
+            item.Name = name;
+            item.URL = url;
+            var duplicatedItem = (await _dataStore.GetItemsAsync()).Find(item => item.URL == url && item.Id != itemId);
 
-            if (!isUpdated)
+            if (duplicatedItem != null)
             {
-                return;
+                await _messageService.ShowAsync(
+                    EditItemPageResources.Save_Modal_Title,
+                    EditItemPageResources.Save_Modal_Content,
+                    EditItemPageResources.Save_Modal_Close_Button_Text
+                );
             }
+            else
+            {
+                var isUpdated = await _dataStore.UpdateItemAsync(item);
 
-            await Shell.Current.GoToAsync("..");
+                if (!isUpdated)
+                {
+                    return;
+                }
+
+                await Shell.Current.GoToAsync("..");
+            }
         }
 
         private bool ValidateSave(object arg)
         {
-            if (item == null)
+            if (item == null || url == null)
             {
                 return false;
             }
 
-            return !String.IsNullOrWhiteSpace(URL) &&
-                !String.IsNullOrWhiteSpace(Name) &&
-                (item.Name != Name ||
-                item.URL != URL);
+            IsValidURL = URLHelper.IsValid(url);
+
+            return !String.IsNullOrWhiteSpace(url) &&
+                !String.IsNullOrWhiteSpace(name) &&
+                (item.Name != name ||
+                item.URL != url) &&
+                isValidURL;
         }
 
         private async void OnCancel(object obj)
@@ -75,11 +108,11 @@ namespace BlackLion.QRStore.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
-        public async void LoadItemId(int itemId)
+        private async void LoadItemId(int itemId)
         {
             try
             {
-                item = await App.Database.GetItemAsync(itemId);
+                item = await _dataStore.GetItemAsync(itemId);
                 Name = item.Name;
                 URL = item.URL;
             }
@@ -87,5 +120,5 @@ namespace BlackLion.QRStore.ViewModels
             {
             }
         }
-    }
+    } 
 }

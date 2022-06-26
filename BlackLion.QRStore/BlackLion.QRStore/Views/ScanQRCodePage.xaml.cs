@@ -1,20 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using ZXing;
+using ZXing.Mobile;
 
 namespace BlackLion.QRStore.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScanQRCodePage : ContentPage
     {
         public ScanQRCodePage()
         {
             InitializeComponent();
+
+            var options = new MobileBarcodeScanningOptions();
+            options.PossibleFormats = new List<BarcodeFormat>() {
+                BarcodeFormat.QR_CODE
+            };
+            QRScanner.Options = options;
+        }
+
+        private void OnFlashButtonClicked(object sender, System.EventArgs e)
+        {
+            QRScanner.IsTorchOn = !QRScanner.IsTorchOn;
         }
     }
 }

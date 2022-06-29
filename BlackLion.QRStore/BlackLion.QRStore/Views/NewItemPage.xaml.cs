@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace BlackLion.QRStore.Views
 {
@@ -7,6 +8,16 @@ namespace BlackLion.QRStore.Views
         public NewItemPage()
         {
             InitializeComponent();
+        }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            while (!nameEntry.Focus())
+            {
+                await Task.Delay(50);
+            }
         }
     }
 }

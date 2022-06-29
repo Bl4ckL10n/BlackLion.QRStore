@@ -15,7 +15,8 @@
         <StackLayout Padding="15" Spacing="10">
             <Entry FontSize="Medium"
                    Placeholder="{x:Static resources:NewItemPageResources.Entry_Name_Placeholder}"
-                   Text="{Binding Name}"/>
+                   Text="{Binding Name}"
+                   x:Name="nameEntry"/>
             <Entry FontSize="Medium"
                    IsSpellCheckEnabled="False" 
                    IsTextPredictionEnabled="False"

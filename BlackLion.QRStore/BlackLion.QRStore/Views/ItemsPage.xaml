@@ -3,20 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BlackLion.QRStore.Views.ItemsPage"
              Title="{Binding Title}"
-             xmlns:local="clr-namespace:BlackLion.QRStore.ViewModels"  
+             xmlns:controls="clr-namespace:BlackLion.QRStore.Controls"
+             xmlns:local="clr-namespace:BlackLion.QRStore.ViewModels"
              xmlns:model="clr-namespace:BlackLion.QRStore.Models"
-             xmlns:resources="clr-namespace:BlackLion.QRStore.Localization"
-             x:Name="BrowseItemsPage">
+             xmlns:resources="clr-namespace:BlackLion.QRStore.Localization">
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding ToggleSearchBarCommand}" IconImageSource="{Binding ToolbarSearchIcon}"/>
         <ToolbarItem Command="{Binding ScanQRCodeCommand}" Text="{x:Static resources:ItemsPageResources.ToolbarItem_Scan}"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
-        <SearchBar IsVisible="{Binding IsSearchBarVisible}"
+        <controls:SearchBar IsVisible="{Binding IsSearchBarVisible}"
                    Placeholder="{x:Static resources:ItemsPageResources.SearchBar_Search}"
                    Text="{Binding SearchBarText}"
-                   SearchCommand="{Binding SearchCommand}"
-                   SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"/>
+                   TextChangedCommand="{Binding SearchTextChangeCommand}"
+                   TextChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"/>
         <RefreshView Command="{Binding LoadItemsCommand}"
                      IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                      x:DataType="local:ItemsViewModel">

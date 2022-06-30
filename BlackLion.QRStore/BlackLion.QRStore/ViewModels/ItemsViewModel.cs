@@ -22,7 +22,7 @@ namespace BlackLion.QRStore.ViewModels
         public Command LoadItemsCommand { get; }
         public Command ScanQRCodeCommand { get; }
         public Command<Item> ItemTapped { get; }
-        public Command<string> SearchCommand { get; }
+        public Command SearchTextChangeCommand { get; }
         public Command<Item> SwipeDeleteCommand { get; }
         public Command ToggleSearchBarCommand { get; }
         
@@ -60,9 +60,9 @@ namespace BlackLion.QRStore.ViewModels
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             ItemTapped = new Command<Item>(OnItemSelected);
             ScanQRCodeCommand = new Command(OnScanButtonClicked);
-            SearchCommand = new Command<string>(async (query) => await OnSearch(query));
             SwipeDeleteCommand = new Command<Item>(async (item) => await OnItemSwept(item));
             ToggleSearchBarCommand = new Command(OnSearchButtonClicked);
+            SearchTextChangeCommand = new Command(OnSearchTextChange);
         }
 
         private async Task ExecuteLoadItemsCommand()
@@ -110,7 +110,25 @@ namespace BlackLion.QRStore.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(ScanQRCodePage));
         }
-        
+
+        private async void OnSearchTextChange(object obj)
+        {
+            Items.Clear();
+
+            if (string.IsNullOrEmpty(obj as string))
+            {
+                var data = await _dataStore.GetItemsAsync(true);
+
+                data.ForEach(item => Items.Add(item));
+            }
+            else
+            {
+                var data = await _dataStore.FindAllByPredicateAsync(i => i.Name.ToLower().Contains((obj as string).ToLower()));
+
+                data.ForEach(item => Items.Add(item));
+            }
+        }
+
         private async void OnItemSelected(Item item)
         {
             if (item == null)
@@ -162,15 +180,6 @@ namespace BlackLion.QRStore.ViewModels
             }
 
             IsSearchBarVisible = !IsSearchBarVisible;
-        }
-
-        private async Task OnSearch(string query)
-        {
-            var data = await _dataStore.FindAllByPredicateAsync(i => i.Name.ToLower().Contains(query.Trim().ToLower()));
-
-            Items.Clear();
-
-            data.ForEach(item => Items.Add(item));
         }
     }
 }
